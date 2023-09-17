@@ -26,6 +26,7 @@ Angular : 16.0.0
     1. Angular
     1. Yarn
     1. Cloudinary Hesabı
+    1. PostgreSQL
 ## Local'de çalıştırmak için yapılması gerekenler
 
 proje yerel dizine çekilir
