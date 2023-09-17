@@ -1,0 +1,40 @@
+<div class="bg-white home-layout h-screen">
+  <app-sidebar></app-sidebar>
+  <div class="overflow-y-scroll relative w-full">
+    <div class="z-10 bg-white shadow-md h-16 flex items-center sticky top-0 left-0 gap-3 px-2 sm:px-10">
+
+      <div class="block sm:hidden" (click)="openSidebar()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </div>
+
+      <div class="flex-1 fill-gray-400 flex items-center gap-3">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10 2.5a7.5 7.5 0 0 1 5.964 12.048l4.743 4.745a1 1 0 0 1-1.32 1.497l-.094-.083-4.745-4.743A7.5 7.5 0 1 1 10 2.5Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" />
+        </svg>
+        <input placeholder="Search..." class="outline-none w-full" [(ngModel)]="searchText" (keydown.enter)="searchWord(searchText)"/>
+      </div>
+
+      <svg class="w-5 h-5 fill-gray-400 " xmlns="http://www.w3.org/2000/svg" id="mdi-bell-ring" viewBox="0 0 24 24">
+        <path
+          d="M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21M19.75,3.19L18.33,4.61C20.04,6.3 21,8.6 21,11H23C23,8.07 21.84,5.25 19.75,3.19M1,11H3C3,8.6 3.96,6.3 5.67,4.61L4.25,3.19C2.16,5.25 1,8.07 1,11Z" />
+      </svg>
+
+      <div class="border-l border-gray-700 pl-3 items-center flex gap-3 hover:cursor-pointer relative"
+        *ngIf="user$ | async as user" (click)="isHoverUserInfo = true" routerLink="profile">
+        <img [src]="user.imagePath" class="h-10 w-10 rounded-full" />
+        <div class="hidden md:block">
+          <p>
+            {{user.email}}
+          </p>
+        </div >
+      </div>
+    </div>
+
+    <div class="test">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

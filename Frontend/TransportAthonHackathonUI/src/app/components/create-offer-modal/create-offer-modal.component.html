@@ -1,0 +1,54 @@
+<div class="h-screen w-screen bg-transparent fixed top-0 left-0 z-10 flex items-center justify-center" *ngIf="isOpen">
+    <div id="modal" class="h-[35rem] w-[60rem] rounded-md bg-black shadow-md text-white">
+        <div id="modal-header" class="h-20 flex items-center px-3 rounded-t-md justify-between">
+            <h1 class="text-2xl font-bold">Teklif Oluştur</h1>
+            <div class="hover:text-red-600 hover:cursor-pointer" (click)="close()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                    class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+        </div>
+        <div id="model-content" class="flex p-5">
+            <form [formGroup]="offerForm" class="flex flex-col w-full gap-5" (ngSubmit)="createOffer()">
+                <div class="flex flex-col w-full gap-2">
+                    <label for="title">Fiyat</label>
+                    <input type="number" id="title" placeholder="300" formControlName="price"
+                        class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="description">Açıklama</label>
+                    <textarea id="description" placeholder="Açıklama giriniz" formControlName="description"
+                        class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700 resize-none h-full"></textarea>
+                </div>
+                <div class="flex gap-5">
+                    <div>
+                        <input class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700" type="date"
+                            formControlName="appointmentDate" />
+                    </div>
+                    <div>
+                        <select formControlName="crewId"
+                            class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700">
+                            <option *ngFor="let crew of crews$ | async; let i = index" [value]="crew.id">
+                                {{crew.crewName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <select formControlName="vehicleId"
+                            class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700">
+                            <option [value]="vehicle.id" *ngFor="let vehicle of vehicles$ | async; let i = index">
+                                {{vehicle.brand}}
+                            </option>
+                        </select>
+                    </div>
+                    <button class="px-2 bg-gray-800 rounded-md">
+                        Oluştur
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

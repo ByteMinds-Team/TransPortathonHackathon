@@ -1,0 +1,92 @@
+
+<div class="grid grid-cols-1 gap-3 p-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div class="bg-black border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <a href="#"  class="flex justify-center items-center">
+            <img class="rounded-t-lg bg-black" src="../../../assets/icons8-truck-90.png" alt="" />
+        </a>
+        <div class="p-5 mt-auto">
+            <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white cursor-pointer">Araç Ekle</h5>
+            </a>
+            <!-- <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Araç ekle</p> -->
+            <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-gray-900 hover:bg-gray-800 cursor-pointer" (click)="changeModalState(true)">
+                Ekle
+                 <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div *ngFor="let i of vehicles" class=" border bg-black border-gray-200 rounded-lg shadow ">
+        <a href="#">
+            <img class="rounded-t-lg" src="{{i.imagePath}}" alt="" />
+        </a>
+        <div class="p-5">
+            <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">{{i.numberPlate}}</h5>
+            </a>
+            <p class="mb-3 font-normal text-white dark:text-gray-400">{{i.brand}}</p>
+            <a routerLink="{{i.id}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-gray-900 hover:bg-gray-800">
+                Detay
+                 <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    
+</div>
+<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" *ngIf="isOpen == true">
+    <!--
+      Background backdrop, show/hide based on modal state.
+  
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <!--
+          Modal panel, show/hide based on modal state.
+  
+          Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg" >
+          <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="">
+              <!-- <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+               
+              </div> -->
+              <div class="grid mt-3 text-center items-center justify-center sm:ml-4 sm:mt-0 sm:text-left" [formGroup]="vehicleForm">
+                <label for="first_name" class="block mb-2 text-sm font-medium">Number Plate</label>
+            <input formControlName="numberPlate" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Brand</label>
+            <input formControlName="brand" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Color</label>
+            <input formControlName="color" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Model Year</label>
+            <input formControlName="modelYear" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Car Image</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+      
+        </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" (click)="changeModalState(false)">İptal</button>
+            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="addVehicle()">Ekle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

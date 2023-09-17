@@ -1,0 +1,54 @@
+<div class="text-white flex h-screen flex-col sm:flex-row bg-black">
+  <div class="flex-1 flex flex-col items-start justify-center">
+    <div class="mx-auto flex-col flex gap-10">
+      <div class="flex flex-col gap-3">
+        <h2 class="font-bold text-3xl">Sign up</h2>
+        <h3>You're a member? <span [routerLink]="['/login']"
+            class="text-purple-500 font-bold hover:underline hover:cursor-pointer">Log in</span>
+        </h3>
+        <h3>You're a corporate customer? <span [routerLink]="['/corporate-register']"
+          class="text-purple-500 font-bold hover:underline hover:cursor-pointer">Corporate Register</span>
+      </h3>
+      </div>
+
+      <div class="flex flex-col gap-7" [formGroup]="registerForm">
+        <div class="flex flex-col gap-2">
+          <p>Full Name</p>
+          <input class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700" formControlName="fullName" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <p>Profile Photo</p>
+          <input class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700" type="file"
+            (change)="onFileSelected($event)" accept="image/*" />
+        </div>
+
+
+        <div class="flex flex-col gap-2">
+          <p>Email</p>
+          <input class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700" formControlName="email" />
+        </div>
+
+
+        <div class="flex flex-col gap-2">
+          <div class="flex justify-between">
+            <p>Password</p>
+          </div>
+          <input type="password" class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700"
+            formControlName="password" />
+        </div>
+      </div>
+
+      <button class="bg-purple-600 rounded-md py-2 hover:bg-purple-700 text-white" (click)="register()">
+        Register
+      </button>
+
+    </div>
+  </div>
+  <div
+    class="welcome-part text-white flex-1 hidden sm:flex flex-col bg-gradient-to-r from-violet-500 to-fuchsia-500 items-center justify-center">
+    <div>
+      <h2 class="font-normal text-4xl">Welcome to</h2>
+      <h1 class="font-normal text-3xl">Transportathon Hackathon</h1>
+    </div>
+  </div>
+</div>

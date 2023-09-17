@@ -1,0 +1,56 @@
+<div class="p-2 sm:p-5 grid grid-cols-12 gap-3 relative">
+  <div class="col-span-12">
+    <button *ngIf="!isInRole('corporate')" id="fab-button" class="p-3 bg-gray-900 text-white rounded-md float-right" (click)="openModal()">
+      Taşıma İsteği Oluştur
+    </button>
+  </div>
+  <div class="bg-black text-white rounded-md shadow-md flex flex-col gap-5 col-span-12 lg:col-span-6" id="card"
+    *ngFor="let transportRequest of transportRequests$ | async">
+    <div id="card-header" class="flex flex-col bg-gray-900 p-3 rounded-t-md">
+      <div class="flex justify-between">
+        <h2 class="text-lg font-bold truncate">
+          {{transportRequest.fullName}} <span
+            class="font-thin text-base ml-3">{{transportRequest.transportType.type}}</span>
+        </h2>
+        <h3 class="italic truncate">
+          {{transportRequest.createdDate | date : 'longDate'}}
+        </h3>
+      </div>
+    </div>
+    <div id="card-content" class="px-3">
+      <p>
+        {{transportRequest.description}}
+      </p>
+    </div>
+    <div id="card-footer" class="mt-auto flex justify-between items-center p-3 pt-0">
+      <h3 class="italic">
+        {{transportRequest.dateGap.gap}}
+      </h3>
+      <div id="button-group" class="text-white flex gap-3">
+        <button *ngIf="isInRole('corporate')" (click)="startChat(transportRequest.userId)"
+          class="bg-gray-900 hover:bg-gray-800 hover:cursor-pointer px-3 py-2 rounded-md flex items-center gap-3 duration-300 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill"
+            viewBox="0 0 16 16">
+            <path
+              d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+          </svg>
+          <p>Mesaj at</p>
+        </button>
+        <button *ngIf="isInRole('corporate')" (click)="openCreateOfferModal(transportRequest)"
+          class="bg-gray-900 hover:bg-gray-800 hover:cursor-pointer px-3 py-2 rounded-md flex items-center gap-3 duration-300 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-calculator-fill" viewBox="0 0 16 16">
+            <path
+              d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z" />
+          </svg>
+          <p>Teklif ver</p>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-create-transport-request-modal [isOpen]="isModalOpen()" (onClose)="closeModal()"
+  (onSuccess)="closeModalAndFetchLatestTransportRequests()" />
+
+<app-create-offer-modal [isOpen]="isCreateOfferModalOpen()" (onClose)="closeModal()" />

@@ -1,0 +1,61 @@
+<div class="flex h-full overflow-hidden relative">
+    <div id="chats" class="md:w-64 w-auto">
+        <ul class="p-2 flex flex-col gap-3 text-white">
+            <li (click)="selectChat(chat)" *ngFor="let chat of chats$ | async"
+                class="flex items-center bg-black p-3 gap-3 rounded-md shadow-md hover:cursor-pointer justify-between">
+                <div class="flex items-center gap-3">
+                    <img class="w-10 h-10 rounded-md" [src]="chat.profileImagePath" />
+                    <h1 class="truncate hidden md:block">{{chat.fullName}}</h1>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                    </svg>
+                </div>
+            </li>
+
+            <!-- <li class="flex items-center bg-black p-3 gap-3 rounded-md shadow-md hover:cursor-pointer justify-between">
+                <div class="flex items-center gap-3">
+                    <img class="w-10 h-10 rounded-md"
+                    src="https://res.cloudinary.com/emreaka/image/upload/v1694896643/TransportHackathonPics/j8twoaoxvm1nwtmsdg5s.jpg" />
+                    <h1 class="truncate hidden md:block">Doğan Taşımacılık</h1>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                    </svg>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+
+    <div id="chat" class="flex flex-col gap-3 p-3 flex-1 overflow-y-auto overflow-x-hidden text-white mb-10" #scrollMe>
+        <div *ngFor="let message of messages" class="bg-black p-3 rounded-md flex flex-col gap-3">
+            <div class="flex items-center gap-3 bg-black">
+                <img class="w-10 h-10 rounded-md" [src]="message.senderImagePath" />
+                <h1 class="truncate hidden md:block">{{message.senderName}}</h1>
+            </div>
+            <div>
+                <p>
+                    {{message.text}}
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-center absolute bottom-0 right-0 w-full p-2 shadow-md gap-3">
+            <input (keydown.enter)="sendMessage()" [(ngModel)]="text"
+                class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700 w-full" />
+            <div (click)="sendMessage()" class="text-green-500 hover:cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-send-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.home-layout {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+}
+
+@media (max-width: 638px) {
+  .home-layout {
+    display: flex;
+  }
+}
+
+.test {
+  height: calc(100% - 4rem);
+}

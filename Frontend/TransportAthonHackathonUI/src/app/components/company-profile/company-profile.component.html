@@ -1,0 +1,59 @@
+<div *ngIf="companyInfo$ | async as companyInfo" class="p-3">
+    <ul class="flex flex-col gap-3">
+        <li class="flex flex-col gap-3">
+            <h1 class="text-5xl">Şirket Bilgisi</h1>
+            <div class="flex gap-3 bg-black p-3 rounded-md text-white">
+                <img [src]="companyInfo.profileImagePath" class="h-20 w-20 rounded-md"/>
+                <div>
+                    <p>{{companyInfo.companyName}}</p>
+                    <p>Şirket Sahibi: {{companyInfo.fullName}}</p>
+                </div>
+            </div>
+        </li>
+
+        <li class="flex flex-col gap-3">
+            <h1 class="text-5xl">Araçlar</h1>
+            <div class="flex gap-3 bg-black p-3 rounded-md text-white" *ngFor="let vehicle of companyInfo.vehicles">
+                <img [src]="vehicle.imagePath" class="h-20 w-20 rounded-md"/>
+                <div>
+                    <p>Plaka: {{vehicle.numberPlate}}</p>
+                    <p>Marka: {{vehicle.brand}}</p>
+                    <p>Renk: {{vehicle.color}}</p>
+                    <p>Model Yılı: {{vehicle.modelYear}}</p>
+                </div>
+            </div>
+        </li>
+
+        <li class="flex flex-col gap-3">
+            <h1 class="text-5xl">İşçiler</h1>
+            <div class="flex gap-3 bg-black p-3 rounded-md text-white" *ngFor="let employee of companyInfo.employees">
+                <img [src]="employee.profileImagePath" class="h-20 w-20 rounded-md"/>
+                <div>
+                    <p>{{employee.fullName}}</p>
+                </div>
+            </div>
+        </li>
+
+        <li class="flex flex-col gap-3">
+            <h1 class="text-5xl">Ekipler</h1>
+            <div class="flex gap-3 bg-black p-3 rounded-md text-white" *ngFor="let crew of companyInfo.crews">
+                <!-- <img [src]="crew.profileImagePath" class="h-20 w-20 rounded-md"/> -->
+                <div>
+                    <p>{{crew.name}}</p>
+                </div>
+            </div>
+        </li>
+
+        <li class="flex flex-col gap-3">
+            <h1 class="text-5xl">Reviews</h1>
+            <div class="flex gap-3 bg-black p-3 rounded-md text-white" *ngFor="let review of reviews$ | async">
+                <img [src]="review.profileImagePath" class="h-20 w-20 rounded-md"/>
+                <div>
+                    <p>{{review.fullName}}</p>
+                    <p>{{review.comment}}</p>
+                    <p>Point: {{review.point}}</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

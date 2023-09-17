@@ -1,0 +1,60 @@
+<ng-container *ngIf="appointment$ | async as appointment">
+    <div class="grid grid-cols-2 p-1">
+        <div class="p-3">
+            <h1 class="text-3xl">Takım Bilgisi</h1>
+            <ul>
+                <li *ngFor="let employee of appointment.employees" class="bg-gray-900 m-3 text-white rounded-md p-3">
+                    <div class="flex items-center gap-3">
+                        <img [src]="employee.profileImagePath" class="h-10 w-10 rounded-md" />
+                        <p>{{employee.fullName}}</p>
+                    </div>
+                </li>
+            </ul>
+
+            <h1 class="text-3xl">Tarih ve Değerlendirme</h1>
+            <ul>
+                <li class="bg-gray-900 m-3 text-white rounded-md p-3">
+                    <div class="flex flex-col gap-3">
+                        <h2 class="text-xl font-bold">Fiyat Bilgisi</h2>
+                        <p>{{appointment.price | currency: 'TL' : '₺'}}</p>
+                    </div>
+                </li>
+                <li class="bg-gray-900 m-3 text-white rounded-md p-3">
+                    <div class="flex flex-col gap-3">
+                        <h2 class="text-xl font-bold">Tarih Bilgisi</h2>
+                        <p>{{appointment.appointmentDate | date: "longDate"}}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="p-3">
+            <h1 class="text-3xl">Şirket Sahibi</h1>
+            <ul>
+                <li class="bg-gray-900 m-3 text-white rounded-md p-3">
+                    <div class="flex items-center gap-3">
+                        <img [src]="appointment.corporateCustomerProfilePhotoPath" class="h-10 w-10 rounded-md" />
+                        <p>{{appointment.corporateUserFullName}}</p>
+                    </div>
+                </li>
+            </ul>
+            <h1 class="text-3xl">Şirket Bilgisi</h1>
+            <ul>
+                <li class="bg-gray-900 m-3 text-white rounded-md p-3">
+                    <div class="flex items-center gap-3">
+                        <img [src]="appointment.companyImagePath" class="h-10 w-10 rounded-md" />
+                        <p>{{appointment.companyName}}</p>
+                    </div>
+                </li>
+            </ul>
+            <h1 class="text-3xl">Şirket Araçları</h1>
+            <ul>
+                <li class="bg-gray-900 m-3 text-white rounded-md p-3" *ngFor="let vehicle of appointment.vehicles">
+                    <div class="flex items-center gap-3">
+                        <img [src]="vehicle.imagePath" class="h-10 w-10 rounded-md" />
+                        <p>{{vehicle.brand}}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</ng-container>

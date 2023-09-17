@@ -1,0 +1,411 @@
+<!-- <div class="p-2 sm:p-5 grid grid-cols-12 gap-3 relative">
+    <div class="bg-black text-white rounded-md shadow-md flex flex-col gap-5 col-span-12 lg:col-span-6" id="card"
+        *ngFor="let appointment of appointments$ | async">
+        <h1>{{appointment.companyName}}</h1>
+    </div>
+</div>
+ -->
+
+ <body class="flex items-center justify-center py-8 px-2">
+    <div class="w-full sm:px-6">
+        <div class="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
+            <div class="sm:flex items-center justify-between">
+                <p class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Çalışanlar
+                </p>
+                <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" (click)="changeEmployeeModalState(true)">Çalışan Ekle</button>
+                <!--                 <div>
+                    <button
+                        class="inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                        <p class="text-sm font-medium leading-none text-white">New Project</p>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+        <div class="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
+            <table class="w-full whitespace-nowrap">
+                <thead>
+                    <tr class="h-16 w-full text-sm leading-none text-gray-800">
+                        <th class="font-normal text-left pl-4">Ad</th>
+                        <th class="font-normal text-left pl-8">Çalışan Statüsü</th>
+                        <th class="font-normal text-left pl-12">Araçları</th>
+                    </tr>
+                </thead>
+                <tbody class="w-full">
+                    <tr *ngFor="let employee of employees; let i = index"
+                        class="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+                        <td class="pl-4 cursor-pointer">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10">
+                                    <img class="w-full h-full"
+                                        [src]="employee.profileImagePath" />
+                                </div>
+                                <div class="pl-4">
+                                    <p class="font-medium">{{employee.fullName}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="pl-8">
+                            <p class="text-sm font-medium leading-none text-gray-800">İşçi</p>
+                        </td>
+                        <td class="pl-12">
+                          <div class="flex items-center">
+                            <a (click)="goVehicleDetailPage(vehicle.id)" *ngFor="let vehicle of employee.vehicle">
+                              <img
+                              class="shadow-md w-8 h-8 rounded-full" [src]="vehicle.imagePath" />
+                            </a>
+                              
+                              
+                              
+                          </div>
+                      </td>
+                        <td class="mr-20 justify-end">
+                            <button (click)="dropDownList===i?dropDownList=-1:dropDownList=i"
+                                class="focus:outline-none pl-7">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M4.16667 10.8334C4.62691 10.8334 5 10.4603 5 10.0001C5 9.53984 4.62691 9.16675 4.16667 9.16675C3.70643 9.16675 3.33334 9.53984 3.33334 10.0001C3.33334 10.4603 3.70643 10.8334 4.16667 10.8334Z"
+                                        stroke="#A1A1AA" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path
+                                        d="M10 10.8334C10.4602 10.8334 10.8333 10.4603 10.8333 10.0001C10.8333 9.53984 10.4602 9.16675 10 9.16675C9.53976 9.16675 9.16666 9.53984 9.16666 10.0001C9.16666 10.4603 9.53976 10.8334 10 10.8334Z"
+                                        stroke="#A1A1AA" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path
+                                        d="M15.8333 10.8334C16.2936 10.8334 16.6667 10.4603 16.6667 10.0001C16.6667 9.53984 16.2936 9.16675 15.8333 9.16675C15.3731 9.16675 15 9.53984 15 10.0001C15 10.4603 15.3731 10.8334 15.8333 10.8334Z"
+                                        stroke="#A1A1AA" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                            <div *ngIf="dropDownList===i" class="bg-white shadow w-24 absolute z-30 right-0 mr-6">
+                              
+
+                                <div
+                                    class="text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white" (click)="deleteEmployee(employee.id)">
+                                    <p>Sil</p>
+                                </div>
+                                <div
+                                    class="text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white" (click)="changeEmployeeUpdateModalState(true , employee.id)">
+                                    <p>Düzenle</p>
+                                </div>
+
+                                <div
+                                class="text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white" (click)="changeDriverModalState(true , employee.id)">
+                                <p>Araç Ata</p>
+                            </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+<!-- <div class="p-2 sm:p-5 grid grid-cols-12 gap-3 relative">
+    <div class="bg-black text-white rounded-md shadow-md flex flex-col gap-5 col-span-12 lg:col-span-6" id="card"
+        *ngFor="let appointment of appointments$ | async">
+        <h1>{{appointment.companyName}}</h1>
+    </div>
+</div>
+ -->
+
+ <body class="flex items-center justify-center py-8 px-2">
+    <div class="w-full sm:px-6">
+        <div class="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
+            <div class="sm:flex items-center justify-between">
+                <p class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Ekipler
+                </p>
+                <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" (click)="changeCrewModalState(true)">Ekip Ekle</button>
+
+                <!--                 <div>
+                    <button
+                        class="inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                        <p class="text-sm font-medium leading-none text-white">New Project</p>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+        <div class="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
+            <table class="w-full whitespace-nowrap">
+                <thead>
+                    <tr class="h-16 w-full text-sm leading-none text-gray-800">
+                        <th class="font-normal text-left pl-4">Ad</th>
+                        <th class="font-normal text-left pl-12">Ekip Çalışanları</th>
+                    </tr>
+                </thead>
+                <tbody class="w-full">
+                    <tr *ngFor="let crew of crews; let i = index"
+                        class="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+                        
+                        <td class="pl-4">
+                            <p class="text-sm font-medium leading-none text-gray-800">{{crew.crewName}}</p>
+                        </td>
+
+                        <td class="pl-12">
+                            <div class="flex items-center">
+                                <img *ngFor="let employee of crew.employees"
+                                    class="shadow-md w-8 h-8 rounded-full" [src]="employee.profileImagePath" />
+                            </div>
+                        </td>
+                        <td class="mr-20 justify-end">
+                            <button (click)="dropDownListForCrew===i?dropDownListForCrew=-1:dropDownListForCrew=i"
+                                class="focus:outline-none pl-7">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M4.16667 10.8334C4.62691 10.8334 5 10.4603 5 10.0001C5 9.53984 4.62691 9.16675 4.16667 9.16675C3.70643 9.16675 3.33334 9.53984 3.33334 10.0001C3.33334 10.4603 3.70643 10.8334 4.16667 10.8334Z"
+                                        stroke="#A1A1AA" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path
+                                        d="M10 10.8334C10.4602 10.8334 10.8333 10.4603 10.8333 10.0001C10.8333 9.53984 10.4602 9.16675 10 9.16675C9.53976 9.16675 9.16666 9.53984 9.16666 10.0001C9.16666 10.4603 9.53976 10.8334 10 10.8334Z"
+                                        stroke="#A1A1AA" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path
+                                        d="M15.8333 10.8334C16.2936 10.8334 16.6667 10.4603 16.6667 10.0001C16.6667 9.53984 16.2936 9.16675 15.8333 9.16675C15.3731 9.16675 15 9.53984 15 10.0001C15 10.4603 15.3731 10.8334 15.8333 10.8334Z"
+                                        stroke="#A1A1AA" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                            <div *ngIf="dropDownListForCrew===i" class="bg-white shadow w-24 absolute z-30 right-0 mr-6">
+                              
+
+                                <div
+                                    class="text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white" (click)="deleteCrew(crew.id)">
+                                    <p>Sil</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+
+
+
+
+ <!----
+    Employee Modal
+-->
+<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" *ngIf="isOpenEmployeeModal == true">
+    <!--
+      Background backdrop, show/hide based on modal state.
+  
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <!--
+          Modal panel, show/hide based on modal state.
+  
+          Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg" >
+          <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="">
+              <!-- <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+               
+              </div> -->
+              <div class="grid mt-3 text-center items-center justify-center sm:ml-4 sm:mt-0 sm:text-left" [formGroup]="employeeForm">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-black">Tam Ad</label>
+            <input formControlName="fullName" type="text" id="first_name" class="bg-gray-50 border text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-gray-600 placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Çalışan Fotografı</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+      
+        </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" (click)="changeEmployeeModalState(false)">İptal</button>
+            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="addEmployee()">Ekle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!----
+    Crew Modal
+-->
+
+
+<div class="relative z-10" aria-labelledby="modal-titles" role="dialog" aria-modal="true" *ngIf="isOpenCrewModal == true">
+    <!--
+      Background backdrop, show/hide based on modal state.
+  
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 ">
+        <!--
+          Modal panel, show/hide based on modal state.
+  
+          Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg" >
+          <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="">
+                <div [formGroup] = crewForm class="mb-5">
+                    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 ">Tam Ad</label>
+                    <input formControlName="crewName" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">    
+    
+                </div>
+              <div class="flex gap-4 flex-wrap">
+                <select #teams (change)="onSelected(teams.value)">
+                    <option>Select Employee</option>
+                    <option value="{{i.id}}" *ngFor="let i of optionEmployees">{{i.fullName}}</option>
+                </select>
+                <div *ngFor="let selectedValue of selectedValues" class="centered-text flex w-32 bg-gray-900 rounded-full justify-center">
+                  <p class=" text-white"> {{selectedValue.fullName}}</p>
+                </div>
+        </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" (click)="changeCrewModalState(false)">İptal</button>
+            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="addCrew()">Ekle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-----
+    Edit Employee Modal
+    ---->
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" *ngIf="isOpenEmployeeUpdateModal">
+    <!--
+      Background backdrop, show/hide based on modal state.
+  
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <!--
+          Modal panel, show/hide based on modal state.
+  
+          Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg" >
+          <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="">
+              <!-- <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+               
+              </div> -->
+              <div class="grid mt-3 text-center items-center justify-center sm:ml-4 sm:mt-0 sm:text-left" [formGroup] = "employeeForm">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tam Ad</label>
+            <input [(ngModel)] = "employee.fullName" formControlName="fullName" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Çalışan Fotografı</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+      
+        </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" (click)="changeEmployeeUpdateModalState(false , null)">İptal</button>
+            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="updateEmployee()">Güncelle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-----
+    Set Vehicle To Employee Modal
+    ---->
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" *ngIf="isOpenDriverModal == true">
+    <!--
+      Background backdrop, show/hide based on modal state.
+  
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <!--
+          Modal panel, show/hide based on modal state.
+  
+          Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg" >
+          <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="">
+              <div [formGroup] = "driverForm">
+                <select formControlName="vehicleId"
+                    class="text-white bg-gray-800 outline-none p-1 rounded-md border border-gray-700">
+                    <option class="text-white" *ngFor="let vehicle of vehicles; let i = index" [value]="vehicle.id">
+                        {{vehicle.numberPlate}}
+                    </option>
+                </select>
+            </div>
+                <!-- <div class="flex flex-col gap-5">
+                  <div>
+                      <select formControlName="dateGapId"
+                          class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700 text-white">
+                          <option default value="">deneme</option>
+                          <option class="text-white" *ngFor="let employee of employees; let i = index" [value]="employee.id">
+                              {{employee.fullName}}
+                          </option>
+                      </select>
+                  </div> 
+            </div> -->
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" (click)="changeDriverModalState(false , null)">İptal</button>
+            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="AddDriver()">Ekle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

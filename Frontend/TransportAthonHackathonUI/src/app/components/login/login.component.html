@@ -1,0 +1,49 @@
+<div class="text-white flex h-screen flex-col sm:flex-row bg-black">
+  <div class="flex-1 flex flex-col items-start justify-center">
+    <div class="mx-auto flex-col flex gap-10">
+      <div class="flex flex-col gap-3">
+        <h2 class="font-bold text-3xl">Sign in to your account</h2>
+        <h3>Not a member? <span [routerLink]="['/register']"
+            class="text-purple-500 font-bold hover:underline hover:cursor-pointer">Create a new account</span>
+        </h3>
+      </div>
+
+      <div class="flex flex-col gap-7" [formGroup]="loginForm">
+        <div class="flex flex-col gap-2">
+          <p>Email</p>
+          <input class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700" formControlName="email" />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <div class="flex justify-between">
+            <p>Password</p>
+            <p class="font-bold text-purple-500 hover:underline hover:cursor-pointer">Forgot password?</p>
+          </div>
+          <input type="password" class="bg-gray-800 outline-none p-1 rounded-md border border-gray-700"
+            formControlName="password" />
+        </div>
+      </div>
+
+      <button class="bg-purple-600 rounded-md py-2 hover:bg-purple-700 text-white" (click)="login()">
+        Sign in
+      </button>
+
+    </div>
+  </div>
+  <div class="deneme text-white flex-1 hidden sm:flex flex-col bg-gradient-to-r from-violet-500 to-fuchsia-500 items-center justify-center">
+    <div>
+      <h2 class="font-normal text-4xl">Welcome to</h2>
+      <h1 class="font-normal text-3xl">Transportathon Hackathon</h1>
+    </div>
+  </div>
+  <!-- <div class="hidden sm:block sm:w-1/2 2xl:w-4/6">
+    <video playsinline autoplay muted class="object-cover h-full hidden 2xl:block">
+      <source src="../../../assets/login_video_wide.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <video playsinline autoplay muted class="object-cover h-full w-full visible 2xl:hidden">
+      <source src="../../../assets/login_video_v2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div> -->
+</div>
