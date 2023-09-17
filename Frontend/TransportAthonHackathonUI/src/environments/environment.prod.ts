@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: "https://vocabularypad-api.emreaka.net/",
+  apiUrl: "https://localhost:7091/api/",
   chatRoute: "https://localhost:7091/chat",
 }
   
